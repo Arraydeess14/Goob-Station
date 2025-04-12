@@ -1,0 +1,5 @@
+
+- type: soundCollection
+  id: ClownHorn
+  files:
+    - /Audio/Misc/thief_greeting.ogg

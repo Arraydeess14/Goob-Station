@@ -1,0 +1,17 @@
+- type: entity
+  name: clown horn
+  parent: BaseItem
+  id: ClownHorn
+  decription: It goes honk honk!
+  components:
+  - type: Sprite
+    sprite: Objects/Fun/bikehorn.rsi
+    state: icon
+  - type: UseDelay
+    delay: 1.0
+  - type: EmitSoundOnUse
+    sound:
+      collection: ClownHorn
+      params:
+        variation: 1
+

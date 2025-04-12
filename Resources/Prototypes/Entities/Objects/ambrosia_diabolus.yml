@@ -1,0 +1,32 @@
+- type: entity
+  name: Ambrosia Diabolus
+  parent: FoodInjectableBase
+  id: Diabolus
+  description: "You really, really shouldn't eat this'"
+  components:
+    - type: Sprite
+      sprite: Objects/Diabolus.rsi
+      state: icon
+    - type: Food
+      useSound: /Audio/Items/eating_1.ogg
+    - type: Item
+      size: Small
+    - type: SolutionContainerManager
+      solutions:
+        food:
+          maxVol: 10
+          reagents:
+          - ReagentId: Nutriment
+            Quantity: 3
+          - ReagentId: Fentanyl
+            Quantity: 1
+          - ReagentId: Mercury
+            Quantity: 3
+    - type: FlavorProfile
+      flavors:
+      - spooky
+      - pineapple
+    - type: DrawableSolution
+      solution: food
+    - type: Extractable
+      grindableSolutionName: food
