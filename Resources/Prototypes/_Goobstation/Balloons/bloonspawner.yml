@@ -1,0 +1,12 @@
+type: entity
+id: BloonSpawner
+parent: BaseMachinePowered
+name: balloon spawner
+description: A machine that spawns balloons in waves
+components:
+ - type: Sprite
+   sprite: _Goobstation/Objects/Fun/bloonspawner.rsi
+   state: icon
+   drawdepth: SmallObjects
+ - type: ApcPowerReceiver
+   powerLoad: 250
