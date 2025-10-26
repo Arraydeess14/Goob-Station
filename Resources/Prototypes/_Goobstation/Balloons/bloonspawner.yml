@@ -1,12 +1,27 @@
-type: entity
-id: BloonSpawner
-parent: BaseMachinePowered
-name: balloon spawner
-description: A machine that spawns balloons in waves
-components:
- - type: Sprite
-   sprite: _Goobstation/Objects/Fun/bloonspawner.rsi
-   state: icon
-   drawdepth: SmallObjects
- - type: ApcPowerReceiver
-   powerLoad: 250
+- type: entity
+  id: BalloonSpawner
+  name: balloon spawner
+  parent: BaseMachinePowered
+  components:
+  - type: Sprite
+    sprite: _Goobstation/Objects/Fun/bloonspawner.rsi
+    state: icon
+    drawdepth: SmallObjects
+  - type: ApcPowerReceiver
+    powerLoad: 250
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 25
+        mask:
+        - TabletopMachineMask
+        layer:
+        - TabletopMachineLayer
+  - type: Physics
+    bodyType: Static
+  - type: BloonSpawner
+    bloonId: [blueBalloon, redBalloon, greenBalloon, yellowBalloon, rainbowBalloon]
+    
