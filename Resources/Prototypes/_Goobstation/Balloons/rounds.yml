@@ -1,0 +1,217 @@
+- type: balloonRound        # Round 1
+  id: BalloonRound1
+  entries:
+  - balloon: RedBalloon
+    amount: 20
+    delay: 0.5
+    
+- type: balloonRound        # Round 2
+  id: BalloonRound2
+  entries:
+  - balloon: RedBalloon
+    amount: 35
+    delay: 0.5
+    
+- type: balloonRound        # Round 3
+  id: BalloonRound3
+  entries:
+  - balloon: RedBalloon
+    amount: 25
+    delay: 0.5
+  - balloon: BlueBalloon
+    amount: 5
+    delay: 0.5
+    
+- type: balloonRound        # Round 4
+  id: BalloonRound4
+  entries:
+  - balloon: RedBalloon
+    amount: 35
+    delay: 0.5
+  - balloon: BlueBalloon
+    amount: 18
+    delay: 0.5
+ 
+- type: balloonRound        # Round 5
+  id: BalloonRound5
+  entries:
+  - balloon: RedBalloon
+    amount: 5
+    delay: 0.5
+  - balloon: BlueBalloon
+    amount: 27
+    delay: 0.5
+    
+- type: balloonRound        # Round 6
+  id: BalloonRound6
+  entries:
+  - balloon: RedBalloon
+    amount: 15
+    delay: 0.5
+  - balloon: BlueBalloon
+    amount: 15
+    delay: 0.5
+  - balloon: GreenBalloon
+    amount: 4
+    delay: 0.8
+    
+- type: balloonRound        # Round 7
+  id: BalloonRound7
+  entries:
+  - balloon: RedBalloon
+    amount: 20
+    delay: 0.4
+  - balloon: BlueBalloon
+    amount: 20
+    delay: 0.5
+  - balloon: GreenBalloon
+    amount: 5
+    delay: 0.7
+    
+- type: balloonRound        # Round 8
+  id: BalloonRound8
+  entries:
+  - balloon: RedBalloon
+    amount: 10
+    delay: 0.4
+  - balloon: BlueBalloon
+    amount: 20
+    delay: 0.5
+  - balloon: GreenBalloon
+    amount: 14
+    delay: 0.7
+    
+- type: balloonRound        # Round 9
+  id: BalloonRound9
+  entries:
+  - balloon: GreenBalloon
+    amount: 30
+    delay: 0.5
+    
+- type: balloonRound        # Round 10
+  id: BalloonRound10
+  entries:
+  - balloon: BlueBalloon
+    amount: 102
+    delay: 0.1
+    
+- type: balloonRound        # Round 11
+  id: BalloonRound11
+  entries:
+  - balloon: RedBalloon
+    amount: 10
+    delay: 0.4
+  - balloon: BlueBalloon
+    amount: 10
+    delay: 0.5
+  - balloon: GreenBalloon
+    amount: 12
+    delay: 0.7
+  - balloon: YellowBalloon
+    amount: 3
+    delay: 0.7
+    
+- type: balloonRound        # Round 12
+  id: BalloonRound12
+  entries:
+  - balloon: BlueBalloon
+    amount: 15
+    delay: 0.5
+  - balloon: GreenBalloon
+    amount: 10
+    delay: 0.5
+  - balloon: YellowBalloon
+    amount: 5
+    delay: 0.7
+    
+- type: balloonRound        # Round 13
+  id: BalloonRound13
+  entries:
+  - balloon: BlueBalloon
+    amount: 50
+    delay: 0.5
+  - balloon: GreenBalloon
+    amount: 23
+    delay: 0.7
+    
+- type: balloonRound        # Round 14
+  id: BalloonRound14
+  entries:
+  - balloon: RedBalloon
+    amount: 49
+    delay: 0.4
+  - balloon: BlueBalloon
+    amount: 15
+    delay: 0.5
+  - balloon: GreenBalloon
+    amount: 10
+    delay: 0.7
+  - balloon: YellowBalloon
+    amount: 9
+    delay: 0.7
+    
+- type: balloonRound        # Round 15
+  id: BalloonRound15
+  entries:
+  - balloon: RedBalloon
+    amount: 20
+    delay: 0.4
+  - balloon: BlueBalloon
+    amount: 15
+    delay: 0.5
+  - balloon: GreenBalloon
+    amount: 12
+    delay: 0.7
+  - balloon: YellowBalloon
+    amount: 10
+    delay: 0.7
+  - balloon: PinkBalloon
+    amount: 5
+    delay: 0.7
+    
+- type: balloonRound        # Round 16
+  id: BalloonRound16
+  entries:
+  - balloon: GreenBalloon
+    amount: 40
+    delay: 0.2
+  - balloon: YellowBalloon
+    amount: 8
+    delay: 0.5
+    
+- type: balloonRound        # Round 17
+  id: BalloonRound17
+  entries:
+  - balloon: YellowBalloon  # add regrow later
+    amount: 12
+    delay: 0.5
+    
+- type: balloonRound        # Round 18
+  id: BalloonRound18
+  entries:
+  - balloon: GreenBalloon
+    amount: 80
+    delay: 0.1
+    
+- type: balloonRound        # Round 19
+  id: BalloonRound19
+  entries:
+  - balloon: GreenBalloon
+    amount: 10
+    delay: 0.3
+  - balloon: YellowBalloon
+    amount: 4
+    delay: 0.4
+  - balloon: YellowBalloon  # add regrow later
+    amount: 5
+    delay: 0.5
+  - balloon: PinkBalloon
+    amount: 15
+    delay: 0.5
+    
+- type: balloonRound        # Round 20
+  id: BalloonRound20
+  entries:
+  - balloon: BlackBalloon
+    amount: 6
+    delay: 0.8

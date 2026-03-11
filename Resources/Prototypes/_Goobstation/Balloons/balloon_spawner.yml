@@ -1,0 +1,44 @@
+- type: entity
+  id: BloonSpawner
+  name: bloon round spawner
+  description: Spawns waves of bloons when activated.
+  parent: BaseStructure
+  components:
+  - type: Anchorable
+  - type: InteractionOutline
+  - type: Appearance
+  - type: Sprite
+    sprite: _Goobstation/Objects/Devices/Balloon_Spawner/balloon_spawner.rsi
+    layers:
+    - state: base
+    - state: button_on
+      map: ["ready_button"]
+    - state: digit_0
+      sprite: _Goobstation/Objects/Devices/Balloon_Spawner/spawner_display.rsi
+      map: ["digit_tens"]
+      offset: "-0.21,0"
+    - state: digit_0
+      sprite: _Goobstation/Objects/Devices/Balloon_Spawner/spawner_display.rsi
+      map: ["digit_ones"]
+  - type: DeviceNetwork
+    deviceNetId: Wireless
+  - type: WirelessNetworkConnection
+    range: 200
+  - type: DeviceLinkSink
+    ports:
+      - BloonSpawner
+  - type: BalloonSpawner
+    rounds:
+    - BalloonRound1
+    - BalloonRound2
+    - BalloonRound3
+    - BalloonRound4
+    - BalloonRound5
+    - BalloonRound6
+    - BalloonRound7
+    - BalloonRound8
+    - BalloonRound9
+    - BalloonRound10
+    - BalloonRound11
+    - BalloonRound12
+    - BalloonRound13

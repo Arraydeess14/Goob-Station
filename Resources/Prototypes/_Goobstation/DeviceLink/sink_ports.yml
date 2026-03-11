@@ -149,3 +149,10 @@
   id: StationRadioRigPort
   name: signal-port-name-radio-rig
   description: signal-port-description-radio-rig
+  
+# Balloon Spawner
+
+- type: sinkPort
+  id: BloonSpawner
+  name: signal-port-name-bloon-spawner
+  description: signal-port-description-bloon-spawner

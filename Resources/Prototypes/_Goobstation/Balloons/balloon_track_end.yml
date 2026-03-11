@@ -1,0 +1,57 @@
+- type: entity
+  id: BloonTrackEnd
+  name: bloon trunk
+  description: End of the bloon track.
+  parent: BaseStructure
+  components:
+  - type: Anchorable
+  - type: InteractionOutline
+  - type: Sprite
+    sprite: _Goobstation/Objects/Devices/Balloon_Spawner/balloon_track_end.rsi
+    layers:
+    - state: base # base
+    - state: heart # heart
+      map: ["lives_heart"]
+      offset: "0,0"
+    - state: skull
+      map: ["lives_skull"]
+      offset: "0,0"
+    - state: digit_1
+      sprite: _Goobstation/Objects/Devices/Balloon_Spawner/spawner_display.rsi
+      map: ["digit_hundreds"]
+      offset: "-0.22,0"
+    - state: digit_0
+      sprite: _Goobstation/Objects/Devices/Balloon_Spawner/spawner_display.rsi
+      map: ["digit_tens"]
+      offset: "-0.05,0"
+    - state: digit_0
+      sprite: _Goobstation/Objects/Devices/Balloon_Spawner/spawner_display.rsi
+      map: ["digit_ones"]
+      offset: "0.12,0"
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      trigger:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.49,-0.49,0.49,0.49"
+        hard: false
+        density: 1
+        mask:
+        - FullTileMask
+        layer:
+        - WallLayer
+  - type: BloonTrackEnd
+    lives: 100
+    maxLives: 100
+    cash: 0
+  - type: DeviceNetwork
+    deviceNetId: Wireless
+  - type: WirelessNetworkConnection
+    range: 200
+  - type: DeviceLinkSource
+    ports:
+      - BloonTrackEnd
+      
+

@@ -186,3 +186,11 @@
   id: StationRadioServerPort
   name: signal-port-name-radio-server
   description: signal-port-description-radio-server
+  
+# Balloon Trunk
+
+- type: sourcePort
+  id: BloonTrackEnd
+  name: signal-port-name-bloon-trunk
+  description: signal-port-description-bloon-trunk
+  defaultLinks: [ BloonSpawner ]

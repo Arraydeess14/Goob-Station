@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "license": "CC-BY-SA-4.0",
+  "copyright": "Arraydeess",
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+    "states": [
+        {
+            "name": "digit_0"
+        },
+        {
+            "name": "digit_1"
+        },
+        {
+            "name": "digit_2"
+        },
+        {
+            "name": "digit_3"
+        },
+        {
+            "name": "digit_4"
+        },
+        {
+            "name": "digit_5"
+        },
+        {
+            "name": "digit_6"
+        },
+        {
+            "name": "digit_7"
+        },
+        {
+            "name": "digit_8"
+        },
+        {
+            "name": "digit_9"
+        }
+    ]
+}
