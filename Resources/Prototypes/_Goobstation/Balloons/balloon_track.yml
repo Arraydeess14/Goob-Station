@@ -1,0 +1,118 @@
+- type: entity
+  id: BaseBloonTrack
+  parent: BaseStructure
+  abstract: true
+  components:
+  - type: InteractionOutline
+  - type: Transform
+  - type: Rotatable
+  - type: Item
+    size: Small
+  - type: Anchorable
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      track:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.45,-0.45,0.45,0.45"
+        hard: false
+        density: 1
+        mask:
+        - TabletopMachineMask
+        layer:
+        - TabletopMachineLayer
+
+- type: entity
+  id: BloonTrackStraight
+  name: bloon track
+  description: A straight bloon track piece.
+  parent: BaseBloonTrack
+  components:
+  - type: Sprite
+    sprite: _Goobstation/Objects/Devices/Balloon_Spawner/balloon_track.rsi
+    layers:
+    - state: bloon_track_straight
+      map: ["base"]
+    - state: bloon_track_straight_powered
+      map: ["flow"]
+      visible: false
+      shader: unshaded
+    noRot: false
+  - type: BloonTrackPiece
+    pieceType: Straight
+    
+- type: entity
+  id: BloonTrackRightCurve
+  name: bloon track right curve
+  description: A curved bloon track piece.
+  parent: BaseBloonTrack
+  components:
+  - type: Sprite
+    sprite: _Goobstation/Objects/Devices/Balloon_Spawner/balloon_track.rsi
+    layers:
+    - state: bloon_track_right_curve
+      map: ["base"]
+    - state: bloon_track_right_curve_powered
+      map: ["flow"]
+      visible: false
+      shader: unshaded
+    noRot: false
+  - type: BloonTrackPiece
+    pieceType: RightTurn
+    
+- type: entity
+  id: BloonTrackLeftCurve
+  name: bloon track left curve
+  description: A curved bloon track piece.
+  parent: BaseBloonTrack
+  components:
+  - type: Sprite
+    sprite: _Goobstation/Objects/Devices/Balloon_Spawner/balloon_track.rsi
+    layers:
+    - state: bloon_track_left_curve
+      map: ["base"]
+    - state: bloon_track_left_curve_powered
+      map: ["flow"]
+      visible: false
+      shader: unshaded
+    noRot: false
+  - type: BloonTrackPiece
+    pieceType: LeftTurn
+    
+- type: entity
+  id: BloonTrackCrossNorthSouth
+  name: bloon track crossing
+  parent: BaseBloonTrack
+  components:
+  - type: Sprite
+    sprite: _Goobstation/Objects/Devices/Balloon_Spawner/balloon_track.rsi
+    layers:
+    - state: bloon_track_cross_north
+      map: ["base"]
+    - state: bloon_track_cross_north_powered
+      map: ["flow"]
+      visible: false
+      shader: unshaded
+    noRot: false
+  - type: BloonTrackPiece
+    pieceType: Cross
+    
+- type: entity
+  id: BloonTrackCrossSouthNorth
+  name: bloon track crossing
+  parent: BaseBloonTrack
+  components:
+  - type: Sprite
+    sprite: _Goobstation/Objects/Devices/Balloon_Spawner/balloon_track.rsi
+    layers:
+    - state: bloon_track_cross_south
+      map: ["base"]
+    - state: bloon_track_cross_south_powered
+      map: ["flow"]
+      visible: false
+      shader: unshaded
+    noRot: false
+  - type: BloonTrackPiece
+    pieceType: Cross

@@ -1,0 +1,81 @@
+{
+  "version": 1,
+  "license": "CC-BY-SA-4.0",
+  "copyright": "Arraydeess",
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+    "states": [
+        {
+            "name": "bloon_track_straight"
+        },
+        {
+            "name": "bloon_track_straight_powered",
+            "delays": [
+                [
+                    0.1,
+                    0.1,
+                    0.1,
+                    0.1
+                ]
+            ]
+        },
+        {
+            "name": "bloon_track_right_curve"
+        },
+        {
+            "name": "bloon_track_right_curve_powered",
+            "delays": [
+                [
+                    0.1,
+                    0.1,
+                    0.1,
+                    0.1
+                ]
+            ]
+        },
+        {
+            "name": "bloon_track_left_curve"
+        },
+        {
+            "name": "bloon_track_left_curve_powered",
+            "delays": [
+                [
+                    0.1,
+                    0.1,
+                    0.1,
+                    0.1
+                ]
+            ]
+        },
+        {
+            "name": "bloon_track_cross_north"
+        },
+        {
+            "name": "bloon_track_cross_north_powered",
+            "delays": [
+                [
+                    0.1,
+                    0.1,
+                    0.1,
+                    0.1
+                ]
+            ]
+        },
+        {
+            "name": "bloon_track_cross_south"
+        },
+        {
+            "name": "bloon_track_cross_south_powered",
+            "delays": [
+                [
+                    0.1,
+                    0.1,
+                    0.1,
+                    0.1
+                ]
+            ]
+        }
+    ]
+}
