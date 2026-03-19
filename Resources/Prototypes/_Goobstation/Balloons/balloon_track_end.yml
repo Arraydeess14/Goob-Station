@@ -6,6 +6,7 @@
   components:
   - type: Anchorable
   - type: InteractionOutline
+  - type: Transform
   - type: Sprite
     sprite: _Goobstation/Objects/Devices/Balloon_Spawner/balloon_track_end.rsi
     layers:
@@ -28,8 +29,9 @@
       sprite: _Goobstation/Objects/Devices/Balloon_Spawner/spawner_display.rsi
       map: ["digit_ones"]
       offset: "0.12,0"
+    noRot: true
   - type: Physics
-    bodyType: Static
+    bodyType: Dynamic
   - type: Fixtures
     fixtures:
       trigger:

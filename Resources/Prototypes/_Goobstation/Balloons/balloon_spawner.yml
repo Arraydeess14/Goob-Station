@@ -7,6 +7,8 @@
   - type: Anchorable
   - type: InteractionOutline
   - type: Appearance
+  - type: Physics
+    bodyType: Dynamic
   - type: Sprite
     sprite: _Goobstation/Objects/Devices/Balloon_Spawner/balloon_spawner.rsi
     layers:
@@ -20,6 +22,7 @@
     - state: digit_0
       sprite: _Goobstation/Objects/Devices/Balloon_Spawner/spawner_display.rsi
       map: ["digit_ones"]
+    noRot: true
   - type: DeviceNetwork
     deviceNetId: Wireless
   - type: WirelessNetworkConnection
@@ -42,3 +45,10 @@
     - BalloonRound11
     - BalloonRound12
     - BalloonRound13
+    - BalloonRound14
+    - BalloonRound15
+    - BalloonRound16
+    - BalloonRound17
+    - BalloonRound18
+    - BalloonRound19
+    - BalloonRound20

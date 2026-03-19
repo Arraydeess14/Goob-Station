@@ -58,7 +58,16 @@ public sealed class BalloonSystem : EntitySystem
 
         foreach (var proto in ent.Comp.SpawnOnPop)
         {
-            Spawn(proto, coords);
+            var spawned = Spawn(proto, coords);
+
+            if (!TryComp<BalloonComponent>(spawned, out var child))
+                continue;
+            // have the baby bloons inherit from their papa
+            child.LinkedTrackEnd = ent.Comp.LinkedTrackEnd;
+            child.CurrentTrackPiece = ent.Comp.CurrentTrackPiece;
+            child.TravelDirection = ent.Comp.TravelDirection;
+            child.MoveTarget = ent.Comp.MoveTarget;
+            child.CurrentTrackEndTarget = ent.Comp.CurrentTrackEndTarget;
         }
     }
     // handle where cash goes

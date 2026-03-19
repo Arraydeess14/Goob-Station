@@ -3,7 +3,7 @@
   entries:
   - balloon: RedBalloon
     amount: 20
-    delay: 0.5
+    delay: 0.7
     
 - type: balloonRound        # Round 2
   id: BalloonRound2

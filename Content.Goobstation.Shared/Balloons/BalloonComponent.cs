@@ -1,5 +1,7 @@
 using Robust.Shared.GameStates;
+using Robust.Shared.Map;
 using Robust.Shared.Prototypes;
+using System.Numerics;
 
 namespace Content.Goobstation.Shared.Balloons;
 
@@ -35,5 +37,36 @@ public sealed partial class BalloonComponent : Component
     [DataField]
     public bool ProcessedPop = false;
 
+    [DataField]
+    public bool IsValidator = false;
+
+    [DataField]
+    public EntityUid? ValidatorSpawner;
+
+    [DataField]
+    public EntityUid? CurrentTrackEndTarget;
+
+    [DataField]
+    public HashSet<EntityUid> ValidatedPieces = new();
+
+    [DataField]
+    public HashSet<(EntityUid Piece, Direction Dir)> ValidatedVisits = new();
+
+    [DataField]
+    public float ValidatorLifetime = 5f;
+
+    [DataField]
+    public float ValidatorStuckTimer = 0f;
+
+    [DataField]
+    public float ValidatorStuckDelay = 0.5f;
+
+    [DataField]
+    public Vector2 LastValidatorPosition;
+
     public EntityUid? LinkedTrackEnd;
+    public EntityUid? CurrentTrackPiece;
+    public EntityCoordinates? MoveTarget;
+    public Direction? TravelDirection;
+
 }

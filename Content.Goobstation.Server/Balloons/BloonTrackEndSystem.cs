@@ -6,9 +6,8 @@ using Content.Shared.Examine;
 using Content.Shared.Interaction;
 using Content.Shared.Popups;
 using Content.Shared.Stacks;
-using Robust.Client.UserInterface.Controls;
 using Robust.Shared.Physics.Events;
-using System.Threading;
+
 namespace Content.Goobstation.Server.Balloons;
 
 public sealed class BloonTrackEndSystem : EntitySystem
@@ -25,6 +24,7 @@ public sealed class BloonTrackEndSystem : EntitySystem
         SubscribeLocalEvent<BloonTrackEndComponent, NewLinkEvent>(OnNewLink);
         SubscribeLocalEvent<BloonTrackEndComponent, ExaminedEvent>(OnExamined);
         SubscribeLocalEvent<BloonTrackEndComponent, PortDisconnectedEvent>(OnPortDisconnected);
+        SubscribeLocalEvent<BloonTrackEndComponent, AnchorStateChangedEvent>(OnTrackEndAnchorChanged);
     }
     // Get cash
     private void OnInteractHand(Entity<BloonTrackEndComponent> ent, ref InteractHandEvent args)
@@ -118,6 +118,10 @@ public sealed class BloonTrackEndSystem : EntitySystem
         if (!TryComp<BalloonComponent>(args.OtherEntity, out var balloon))
             return;
 
+        // Validators are handled only by the movement system when they reach the trunk.
+        if (balloon.IsValidator)
+            return;
+
         if (balloon.ProcessedPop)
             return;
 
@@ -182,5 +186,17 @@ public sealed class BloonTrackEndSystem : EntitySystem
     {
         args.PushMarkup(Loc.GetString("bloon-track-end-lives", ("current", ent.Comp.Lives), ("max", ent.Comp.MaxLives)));
         args.PushMarkup(Loc.GetString("bloon-track-end-cash", ("cash", ent.Comp.Cash)));
+    }
+
+    private void OnTrackEndAnchorChanged(Entity<BloonTrackEndComponent> ent, ref AnchorStateChangedEvent args)
+    {
+        if (args.Anchored)
+            return;
+
+        if (ent.Comp.LinkedSpawner is { } spawnerUid &&
+            TryComp<BalloonSpawnerComponent>(spawnerUid, out var spawner))
+        {
+            _spawner.InvalidateTrack(spawnerUid, spawner);
+        }
     }
 }

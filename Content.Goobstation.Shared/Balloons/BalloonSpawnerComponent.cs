@@ -25,6 +25,15 @@ public sealed partial class BalloonSpawnerComponent : Component
     [DataField]
     public float NextSpawnTimer = 0f;
 
+    [DataField]
+    public bool TrackValidated = false;
+
+    [DataField]
+    public bool ValidationInProgress = false;
+
+    [DataField]
+    public HashSet<EntityUid> ValidatedTrackPieces = new();
+
     public EntityUid? LinkedTrackEnd;
 }
 
