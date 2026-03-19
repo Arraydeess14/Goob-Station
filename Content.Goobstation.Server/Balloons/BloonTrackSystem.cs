@@ -10,8 +10,13 @@ public sealed class BloonTrackSystem : EntitySystem
     {
         SubscribeLocalEvent<BloonTrackPieceComponent, ComponentShutdown>(OnTrackPieceShutdown);
         SubscribeLocalEvent<BloonTrackPieceComponent, AnchorStateChangedEvent>(OnAnchorChanged);
+        SubscribeLocalEvent<BloonTrackPieceComponent, MapInitEvent>(OnTrackMapInit);
     }
-
+    private void OnTrackMapInit(Entity<BloonTrackPieceComponent> ent, ref MapInitEvent args)
+    {
+        ent.Comp.AnchoredVisual = Transform(ent).Anchored;
+        Dirty(ent);
+    }
     private void OnTrackPieceShutdown(Entity<BloonTrackPieceComponent> ent, ref ComponentShutdown args)
     {
         InvalidateUsingPiece(ent.Owner);
@@ -19,6 +24,9 @@ public sealed class BloonTrackSystem : EntitySystem
 
     private void OnAnchorChanged(Entity<BloonTrackPieceComponent> ent, ref AnchorStateChangedEvent args)
     {
+        ent.Comp.AnchoredVisual = args.Anchored;
+        Dirty(ent);
+
         if (args.Anchored)
             return;
 

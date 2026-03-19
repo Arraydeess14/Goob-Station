@@ -11,6 +11,9 @@
             "name": "bloon_track_straight"
         },
         {
+            "name": "bloon_track_straight_invalid"
+        },
+        {
             "name": "bloon_track_straight_powered",
             "delays": [
                 [
@@ -23,6 +26,9 @@
         },
         {
             "name": "bloon_track_right_curve"
+        },
+        {
+            "name": "bloon_track_right_curve_invalid"
         },
         {
             "name": "bloon_track_right_curve_powered",
@@ -39,6 +45,9 @@
             "name": "bloon_track_left_curve"
         },
         {
+            "name": "bloon_track_left_curve_invalid"
+        },
+        {
             "name": "bloon_track_left_curve_powered",
             "delays": [
                 [
@@ -53,21 +62,10 @@
             "name": "bloon_track_cross_north"
         },
         {
+            "name": "bloon_track_cross_north_invalid"
+        },
+        {
             "name": "bloon_track_cross_north_powered",
-            "delays": [
-                [
-                    0.1,
-                    0.1,
-                    0.1,
-                    0.1
-                ]
-            ]
-        },
-        {
-            "name": "bloon_track_cross_south"
-        },
-        {
-            "name": "bloon_track_cross_south_powered",
             "delays": [
                 [
                     0.1,

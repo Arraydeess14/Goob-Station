@@ -56,28 +56,28 @@ public sealed class BalloonSpawnerSystem : EntitySystem
 
         if (!Transform(ent).Anchored)
         {
-            _popup.PopupEntity("The spawner must be anchored.", ent, args.User);
-            args.Handled = true;
-            return;
-        }
-
-        if (ent.Comp.LinkedTrackEnd is not { } trackEndUid || !TryComp<TransformComponent>(trackEndUid, out var trunkXform) || !trunkXform.Anchored)
-        {
-            _popup.PopupEntity("The bloon trunk must be anchored.", ent, args.User);
+            _popup.PopupEntity(Loc.GetString("bloon-spawner-error-anchor"), ent, args.User);
             args.Handled = true;
             return;
         }
 
         if (!HasValidTrackEnd(ent))
         {
-            _popup.PopupEntity("This spawner is not linked to a bloon track end.", ent, args.User);
+            _popup.PopupEntity(Loc.GetString("bloon-spawner-error-link"), ent, args.User);
+            args.Handled = true;
+            return;
+        }
+
+        if (ent.Comp.LinkedTrackEnd is not { } trackEndUid || !TryComp<TransformComponent>(trackEndUid, out var trunkXform) || !trunkXform.Anchored)
+        {
+            _popup.PopupEntity(Loc.GetString("bloon-spawner-error-anchor-trunk"), ent, args.User);
             args.Handled = true;
             return;
         }
 
         if (ent.Comp.Active)
         {
-            _popup.PopupEntity("This spawner is already active.", ent, args.User);
+            _popup.PopupEntity(Loc.GetString("bloon-spawner-error-active"), ent, args.User);
             args.Handled = true;
             return;
         }
@@ -85,7 +85,7 @@ public sealed class BalloonSpawnerSystem : EntitySystem
         if (ent.Comp.CurrentRound >= ent.Comp.Rounds.Count)
         {
             ResetSpawner(ent.Owner, ent.Comp);
-            _popup.PopupEntity("All rounds completed. Spawner reset to round 1.", ent, args.User);
+            _popup.PopupEntity(Loc.GetString("bloon-spawner-reset"), ent, args.User);
             args.Handled = true;
             return;
         }
@@ -105,7 +105,7 @@ public sealed class BalloonSpawnerSystem : EntitySystem
     {
         if (!HasValidTrackEnd(ent))
         {
-            _popup.PopupEntity("This spawner is not linked to a bloon track end.", ent, user);
+            _popup.PopupEntity(Loc.GetString("bloon-spawner-error-link"), ent, user);
             return;
         }
 
@@ -130,7 +130,7 @@ public sealed class BalloonSpawnerSystem : EntitySystem
         ent.Comp.NextSpawnTimer = 0f;
         Dirty(ent);
 
-        _popup.PopupEntity($"Starting round {ent.Comp.CurrentRound + 1}.", ent, user);
+        _popup.PopupEntity(Loc.GetString("bloon-spawner-starting-round", ("round", ent.Comp.CurrentRound + 1)), ent, user);
     }
 
     public override void Update(float frameTime)
@@ -148,8 +148,6 @@ public sealed class BalloonSpawnerSystem : EntitySystem
                 spawner.Pending.Clear();
                 spawner.NextSpawnTimer = 0f;
                 Dirty(uid, spawner);
-
-                Log.Warning($"Bloon spawner {ToPrettyString(uid)} lost its linked track end while active.");
                 continue;
             }
 
@@ -178,6 +176,9 @@ public sealed class BalloonSpawnerSystem : EntitySystem
                     balloon.CurrentTrackPiece = firstTrack;
                     balloon.TravelDirection = dir;
                     balloon.MoveTarget = Transform(firstTrack).Coordinates;
+
+                    if (TryComp<TransformComponent>(spawned, out var balloonXform))
+                        UpdateBloonRotation(spawned, balloon, balloonXform);
                 }
             }
 
@@ -275,19 +276,19 @@ public sealed class BalloonSpawnerSystem : EntitySystem
         }
 
         Dirty(spawnerUid, comp);
-        _popup.PopupEntity("Track validated.", spawnerUid);
+        _popup.PopupEntity(Loc.GetString("bloon-track-validated"), spawnerUid);
     }
     private void StartValidation(Entity<BalloonSpawnerComponent> ent, EntityUid user)
     {
         if (ent.Comp.ValidationInProgress)
         {
-            _popup.PopupEntity("Track validation already in progress.", ent, user);
+            _popup.PopupEntity(Loc.GetString("bloon-track-validation-in-progress"), ent, user);
             return;
         }
 
         if (!HasValidTrackEnd(ent))
         {
-            _popup.PopupEntity("This spawner is not linked to a bloon track end.", ent, user);
+            _popup.PopupEntity(Loc.GetString("bloon-spawner-error-link"), ent, user);
             return;
         }
 
@@ -319,12 +320,12 @@ public sealed class BalloonSpawnerSystem : EntitySystem
             {
                 FailValidation(ent.Owner, ent.Comp);
                 QueueDel(spawned);
-                _popup.PopupEntity("Track validation failed.", ent, user);
+                _popup.PopupEntity(Loc.GetString("bloon-track-validation-failed"), ent, user);
                 return;
             }
         }
 
-        _popup.PopupEntity("Validating track...", ent, user);
+        _popup.PopupEntity(Loc.GetString("bloon-track-validating"), ent, user);
     }
     public void InvalidateTrack(EntityUid spawnerUid, BalloonSpawnerComponent? comp = null)
     {
@@ -359,7 +360,7 @@ public sealed class BalloonSpawnerSystem : EntitySystem
         ResetSpawner(spawnerUid, comp);
         Dirty(spawnerUid, comp);
 
-        _popup.PopupEntity("Track broken Dickhead!!", spawnerUid);
+        _popup.PopupEntity(Loc.GetString("bloon-track-broken"), spawnerUid);
     }
 
     public void FailValidation(EntityUid spawnerUid, BalloonSpawnerComponent? comp = null)
@@ -375,7 +376,7 @@ public sealed class BalloonSpawnerSystem : EntitySystem
         comp.ValidatedTrackPieces.Clear();
 
         Dirty(spawnerUid, comp);
-        _popup.PopupEntity("Track validation failed.", spawnerUid);
+        _popup.PopupEntity(Loc.GetString("bloon-track-validation-failed"), spawnerUid);
     }
     private void ClearLinkedBloons(EntityUid? trackEndUid)
     {
@@ -399,5 +400,20 @@ public sealed class BalloonSpawnerSystem : EntitySystem
             return;
 
         InvalidateTrack(ent.Owner, ent.Comp);
+    }
+
+    private void UpdateBloonRotation(EntityUid uid, BalloonComponent balloon, TransformComponent xform)
+    {
+        if (balloon.TravelDirection == null)
+            return;
+
+        xform.LocalRotation = balloon.TravelDirection.Value switch
+        {
+            Direction.North => Angle.Zero,
+            Direction.East => Angle.FromDegrees(-90),
+            Direction.South => Angle.FromDegrees(180),
+            Direction.West => Angle.FromDegrees(90),
+            _ => xform.LocalRotation
+        };
     }
 }

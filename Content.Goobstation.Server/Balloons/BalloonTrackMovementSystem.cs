@@ -142,6 +142,7 @@ public sealed class BalloonTrackMovementSystem : EntitySystem
         }
 
         balloon.TravelDirection = exitDirection.Value;
+        UpdateBloonRotation(uid, balloon, xform);
 
         if (Deleted(currentTrackUid))
         {
@@ -259,5 +260,20 @@ public sealed class BalloonTrackMovementSystem : EntitySystem
             _spawner.FailValidation(spawnerUid);
 
         QueueDel(uid);
+    }
+
+    private void UpdateBloonRotation(EntityUid uid, BalloonComponent balloon, TransformComponent xform)
+    {
+        if (balloon.TravelDirection == null)
+            return;
+
+        xform.LocalRotation = balloon.TravelDirection.Value switch
+        {
+            Direction.North => Angle.Zero,
+            Direction.East => Angle.FromDegrees(-90),
+            Direction.South => Angle.FromDegrees(180),
+            Direction.West => Angle.FromDegrees(90),
+            _ => xform.LocalRotation
+        };
     }
 }

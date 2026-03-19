@@ -27,6 +27,7 @@ public sealed class BloonTrackPieceVisualizerSystem : EntitySystem
 
     private void UpdateTrackVisual(EntityUid uid, BloonTrackPieceComponent comp)
     {
+        _sprite.LayerSetVisible(uid, "anchored", comp.AnchoredVisual);
         _sprite.LayerSetVisible(uid, "flow", comp.Validated);
     }
 }

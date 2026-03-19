@@ -18,4 +18,7 @@ public sealed partial class BloonTrackPieceComponent : Component
 
     [DataField, AutoNetworkedField]
     public bool Validated = false;
+
+    [DataField, AutoNetworkedField]
+    public bool AnchoredVisual = false;
 }

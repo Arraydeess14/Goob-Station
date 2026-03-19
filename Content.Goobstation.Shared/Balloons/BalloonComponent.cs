@@ -69,4 +69,5 @@ public sealed partial class BalloonComponent : Component
     public EntityCoordinates? MoveTarget;
     public Direction? TravelDirection;
 
+    public bool IsMoab = false;
 }

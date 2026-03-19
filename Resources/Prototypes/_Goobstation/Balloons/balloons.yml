@@ -275,6 +275,40 @@
             volume: -4
       - !type:DoActsBehavior
         acts: [ "Destruction" ]
+ 
+# Plasma Balloon
+- type: entity
+  name: plasma balloon
+  parent: BaseBalloon
+  description: The most volatile balloon. Immune to shock and cold!
+  id: PlasmaBalloon
+  components:
+  - type: Sprite
+    state: plasma
+  - type: Balloon
+    minCash: 5
+    maxCash: 10
+    speed: 3
+    lives: 11
+    spawnOnPop:
+    - PinkBalloon
+    - PinkBalloon
+  - type: Damageable
+    damageContainer: PlasmaBalloon
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 1           # balloon health
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          path: /Audio/_Goobstation/BalloonEffect/balloon_pop.ogg
+          params:
+            variation: 0.125
+            volume: -4
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
 
 # Zebra Balloon
 - type: entity
@@ -427,6 +461,7 @@
     minCash: 5
     maxCash: 10
     speed: 1
+    isMoab: true
     lives: 616 # Game accurate
     spawnOnPop:
     - CeramicBalloon

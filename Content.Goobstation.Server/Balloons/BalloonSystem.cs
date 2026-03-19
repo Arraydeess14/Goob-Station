@@ -2,8 +2,10 @@ using Content.Goobstation.Shared.Balloons;
 using Content.Server.Stack;
 using Content.Shared.Destructible;
 using Content.Shared.Stacks;
+using Robust.Shared.Map;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
+using System.Numerics;
 
 namespace Content.Goobstation.Server.Balloons;
 
@@ -54,15 +56,31 @@ public sealed class BalloonSystem : EntitySystem
         if (ent.Comp.SpawnOnPop.Count == 0)
             return;
 
-        var coords = Transform(ent).Coordinates;
+        var parentCoords = Transform(ent).Coordinates;
+        var parentPos = parentCoords.Position;
 
-        foreach (var proto in ent.Comp.SpawnOnPop)
+        var backward = ent.Comp.TravelDirection switch
         {
-            var spawned = Spawn(proto, coords);
+            Direction.East => new Vector2(-1f, 0f),
+            Direction.West => new Vector2(1f, 0f),
+            Direction.North => new Vector2(0f, -1f),
+            Direction.South => new Vector2(0f, 1f),
+            _ => Vector2.Zero
+        };
+
+        const float spacing = 0.30f; // Spacing for children balloons
+
+        for (var i = 0; i < ent.Comp.SpawnOnPop.Count; i++)
+        {
+            var proto = ent.Comp.SpawnOnPop[i];
+            var offsetPos = parentPos + backward * (spacing * (i + 1));
+            var spawnCoords = new EntityCoordinates(parentCoords.EntityId, offsetPos);
+
+            var spawned = Spawn(proto, spawnCoords);
 
             if (!TryComp<BalloonComponent>(spawned, out var child))
                 continue;
-            // have the baby bloons inherit from their papa
+
             child.LinkedTrackEnd = ent.Comp.LinkedTrackEnd;
             child.CurrentTrackPiece = ent.Comp.CurrentTrackPiece;
             child.TravelDirection = ent.Comp.TravelDirection;

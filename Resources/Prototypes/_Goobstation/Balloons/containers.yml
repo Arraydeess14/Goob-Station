@@ -10,13 +10,15 @@
   - Brute
   - Genetic
   - Toxin
+  - Electronic
+  
 - type: damageContainer
   id: BlackBalloon
   supportedGroups:
   - Brute
   - Genetic
   - Toxin
-
+  - Electronic
   supportedTypes:
     - Cold
     - Caustic
@@ -28,7 +30,9 @@
   - Genetic
   - Toxin
   - Electronic
-  
+  supportedTypes:
+    - Shock
+    
 - type: damageContainer
   id: WhiteBalloon
   supportedGroups:
@@ -39,6 +43,7 @@
   supportedTypes:
     - Heat
     - Caustic
+    - Shock
     
 - type: damageContainer
   id: ZebraBalloon
@@ -46,4 +51,13 @@
   - Brute
   - Genetic
   - Toxin
+  - Electronic
+  supportedTypes:
+    - Shock
   
+- type: damageContainer
+  id: PlasmaBalloon
+  supportedGroups:
+  - Brute
+  - Genetic
+  - Toxin

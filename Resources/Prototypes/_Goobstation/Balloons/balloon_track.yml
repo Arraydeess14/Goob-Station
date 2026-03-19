@@ -35,6 +35,9 @@
     layers:
     - state: bloon_track_straight
       map: ["base"]
+    - state: bloon_track_straight_invalid
+      map: ["anchored"]
+      visible: false
     - state: bloon_track_straight_powered
       map: ["flow"]
       visible: false
@@ -54,6 +57,9 @@
     layers:
     - state: bloon_track_right_curve
       map: ["base"]
+    - state: bloon_track_right_curve_invalid
+      map: ["anchored"]
+      visible: false
     - state: bloon_track_right_curve_powered
       map: ["flow"]
       visible: false
@@ -73,6 +79,9 @@
     layers:
     - state: bloon_track_left_curve
       map: ["base"]
+    - state: bloon_track_left_curve_invalid
+      map: ["anchored"]
+      visible: false
     - state: bloon_track_left_curve_powered
       map: ["flow"]
       visible: false
@@ -91,25 +100,10 @@
     layers:
     - state: bloon_track_cross_north
       map: ["base"]
-    - state: bloon_track_cross_north_powered
-      map: ["flow"]
+    - state: bloon_track_cross_north_invalid
+      map: ["anchored"]
       visible: false
-      shader: unshaded
-    noRot: false
-  - type: BloonTrackPiece
-    pieceType: Cross
-    
-- type: entity
-  id: BloonTrackCrossSouthNorth
-  name: bloon track crossing
-  parent: BaseBloonTrack
-  components:
-  - type: Sprite
-    sprite: _Goobstation/Objects/Devices/Balloon_Spawner/balloon_track.rsi
-    layers:
-    - state: bloon_track_cross_south
-      map: ["base"]
-    - state: bloon_track_cross_south_powered
+    - state: bloon_track_cross_north_powered
       map: ["flow"]
       visible: false
       shader: unshaded
