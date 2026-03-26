@@ -11,9 +11,17 @@
   components:
   - type: Sprite
     sprite: _Goobstation/Objects/Fun/balloons.rsi
-    state: icon
     drawdepth: Overdoors # just so it renders above spesos
     noRot: True
+    layers:
+    - state: icon
+      map: [ "base" ]
+    - state: camo
+      visible: false
+      map: [ "camo" ]
+    - state: regrow
+      visible: false
+      map: [ "regrow" ]
   - type: Damageable
     damageContainer: RubberBalloon # default damage container
   - type: Physics # has dynamic physics
@@ -88,10 +96,19 @@
   id: RedBalloon
   components:
   - type: Sprite
-    state: red
+    layers:
+    - state: red
+      map: [ "base" ]
+    - state: camo
+      visible: false
+      map: [ "camo" ]
+    - state: regrow
+      visible: false
+      map: [ "regrow" ]
   - type: Balloon
     speed: 1.0
     lives: 1
+    regrowInto: BlueBalloon
     spawnOnPop: []
 
 
@@ -103,10 +120,19 @@
   id: BlueBalloon
   components:
   - type: Sprite
-    state: blue
+    layers:
+    - state: blue
+      map: [ "base" ]
+    - state: camo
+      visible: false
+      map: [ "camo" ]
+    - state: regrow
+      visible: false
+      map: [ "regrow" ]
   - type: Balloon
     speed: 1.4
     lives: 2
+    regrowInto: GreenBalloon
     spawnOnPop:
     - RedBalloon
 
@@ -118,10 +144,19 @@
   id: GreenBalloon
   components:
   - type: Sprite
-    state: green
+    layers:
+    - state: green
+      map: [ "base" ]
+    - state: camo
+      visible: false
+      map: [ "camo" ]
+    - state: regrow
+      visible: false
+      map: [ "regrow" ]
   - type: Balloon
     speed: 1.8
     lives: 3
+    regrowInto: YellowBalloon
     spawnOnPop:
     - BlueBalloon
 
@@ -133,10 +168,19 @@
   id: YellowBalloon
   components:
   - type: Sprite
-    state: yellow
+    layers:
+    - state: yellow
+      map: [ "base" ]
+    - state: camo
+      visible: false
+      map: [ "camo" ]
+    - state: regrow
+      visible: false
+      map: [ "regrow" ]
   - type: Balloon
     speed: 3.2
     lives: 4
+    regrowInto: PinkBalloon
     spawnOnPop:
     - GreenBalloon
 
@@ -148,7 +192,15 @@
   id: PinkBalloon
   components:
   - type: Sprite
-    state: pink
+    layers:
+    - state: pink
+      map: [ "base" ]
+    - state: camo
+      visible: false
+      map: [ "camo" ]
+    - state: regrow
+      visible: false
+      map: [ "regrow" ]
   - type: Balloon
     speed: 3.5
     lives: 5
@@ -163,7 +215,15 @@
   id: BlackBalloon
   components:
   - type: Sprite
-    state: black
+    layers:
+    - state: black
+      map: [ "base" ]
+    - state: camo
+      visible: false
+      map: [ "camo" ]
+    - state: regrow
+      visible: false
+      map: [ "regrow" ]
   - type: Balloon
     speed: 1.8
     lives: 11
@@ -181,7 +241,15 @@
   id: WhiteBalloon
   components:
   - type: Sprite
-    state: white
+    layers:
+    - state: white
+      map: [ "base" ]
+    - state: camo
+      visible: false
+      map: [ "camo" ]
+    - state: regrow
+      visible: false
+      map: [ "regrow" ]
   - type: Balloon
     speed: 2
     lives: 11
@@ -199,7 +267,15 @@
   id: PlasmaBalloon
   components:
   - type: Sprite
-    state: plasma
+    layers:
+    - state: plasma
+      map: [ "base" ]
+    - state: camo
+      visible: false
+      map: [ "camo" ]
+    - state: regrow
+      visible: false
+      map: [ "regrow" ]
   - type: Balloon
     speed: 3
     lives: 11
@@ -217,7 +293,15 @@
   id: ZebraBalloon
   components:
   - type: Sprite
-    state: zebra
+    layers:
+    - state: zebra
+      map: [ "base" ]
+    - state: camo
+      visible: false
+      map: [ "camo" ]
+    - state: regrow
+      visible: false
+      map: [ "regrow" ]
   - type: Balloon
     speed: 1.8
     lives: 23
@@ -235,7 +319,15 @@
   id: SteelBalloon
   components:
   - type: Sprite
-    state: steel
+    layers:
+    - state: steel
+      map: [ "base" ]
+    - state: camo
+      visible: false
+      map: [ "camo" ]
+    - state: regrow
+      visible: false
+      map: [ "regrow" ]
   - type: Balloon
     speed: 1
     lives: 23
@@ -256,7 +348,15 @@
   id: RainbowBalloon
   components:
   - type: Sprite
-    state: rainbow
+    layers:
+    - state: rainbow
+      map: [ "base" ]
+    - state: camo
+      visible: false
+      map: [ "camo" ]
+    - state: regrow
+      visible: false
+      map: [ "regrow" ]
   - type: Balloon
     speed: 2.2
     lives: 47
@@ -272,7 +372,15 @@
   id: CeramicBalloon
   components:
   - type: Sprite
-    state: carp
+    layers:
+    - state: carp
+      map: [ "base" ]
+    - state: camo
+      visible: false
+      map: [ "camo" ]
+    - state: regrow
+      visible: false
+      map: [ "regrow" ]
   - type: Balloon
     speed: 2.5
     lives: 104
@@ -305,9 +413,17 @@
   id: MoabBalloon
   components:
   - type: Sprite
-    sprite: _Goobstation/Objects/Fun/moabs.rsi # Had to change RSI due to different pixel dimensions
-    state: dragon
+    sprite: _Goobstation/Objects/Fun/moabs.rsi
     noRot: false
+    layers:
+    - state: dragon
+      map: [ "base" ]
+    - state: regrow
+      map: [ "regrow" ]
+      visible: false
+    - state: camo
+      map: [ "camo" ]
+      visible: false
   - type: Balloon
     speed: 1
     popHealth: 800

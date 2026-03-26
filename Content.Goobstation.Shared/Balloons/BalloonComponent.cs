@@ -5,7 +5,7 @@ using System.Numerics;
 
 namespace Content.Goobstation.Shared.Balloons;
 
-[RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
+[RegisterComponent, NetworkedComponent, AutoGenerateComponentState(true)]
 public sealed partial class BalloonComponent : Component
 {
     [DataField, AutoNetworkedField]
@@ -42,6 +42,27 @@ public sealed partial class BalloonComponent : Component
 
     [DataField]
     public bool ProcessedPop = false;
+
+    // Regrow
+    [DataField, AutoNetworkedField]
+    public bool IsRegrow = false;
+
+    [DataField]
+    public float RegrowDelay = 1f;
+
+    [DataField]
+    public float RegrowTimer = 0f;
+
+    [DataField]
+    public EntProtoId? RegrowInto = null;
+
+    [DataField, AutoNetworkedField]
+    public EntProtoId? RegrowCap = null;
+    // end regrow
+
+    // Camo
+    [DataField, AutoNetworkedField]
+    public bool IsCamo = false;
 
     // Track Validation
     [DataField]

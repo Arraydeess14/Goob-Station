@@ -45,4 +45,10 @@ public sealed partial class QueuedBalloonSpawn
 
     [DataField]
     public float Delay = 0.5f;
+
+    [DataField]
+    public bool IsRegrow = false;
+
+    [DataField]
+    public bool IsCamo = false;
 }

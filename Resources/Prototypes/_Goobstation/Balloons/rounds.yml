@@ -221,6 +221,7 @@
   - balloon: YellowBalloon  # add regrow later
     amount: 12
     delay: 0.5
+    regrow: true
     
 - type: balloonRound        # Round 18
   id: BalloonRound18
@@ -241,6 +242,7 @@
   - balloon: YellowBalloon  # add regrow later
     amount: 5
     delay: 0.5
+    regrow: true
   - balloon: PinkBalloon
     amount: 15
     delay: 0.5
@@ -291,6 +293,7 @@
   - balloon: GreenBalloon   # Add Camo later
     amount: 1
     delay: 1.0
+    camo: true
   - balloon: WhiteBalloon
     amount: 7
     delay: 1.0
@@ -301,6 +304,7 @@
   - balloon: YellowBalloon  # Add regrow
     amount: 25
     delay: 0.4
+    regrow: true
   - balloon: PlasmaBalloon
     amount: 10
     delay: 0.5
@@ -347,6 +351,7 @@
   - balloon: YellowBalloon # Regrow
     amount: 15
     delay: 0.6
+    regrow: true
     
 - type: balloonRound        # Round 30
   id: BalloonRound30
@@ -370,9 +375,10 @@
   - balloon: ZebraBalloon # Regrow
     amount: 2
     delay: 1.0
+    regrow: true
     
 - type: balloonRound        # Round 32
-  id: BalloonRound23
+  id: BalloonRound32
   entries:
   - balloon: BlackBalloon
     amount: 15
@@ -390,9 +396,11 @@
   - balloon: RedBalloon # Camo
     amount: 20
     delay: 0.3
+    camo: true
   - balloon: YellowBalloon # Camo
     amount: 13
     delay: 1.0
+    camo: true
     
 - type: balloonRound        # Round 34
   id: BalloonRound34
@@ -429,12 +437,16 @@
   - balloon: GreenBalloon   # Camo AND regrow
     amount: 10
     delay: 1.0
+    camo: true
+    regrow: true
   - balloon: PinkBalloon
     amount: 40
     delay: 0.2
   - balloon: GreenBalloon   # Camo AND regrow
     amount: 10
     delay: 1.0
+    camo: true
+    regrow: true
   - balloon: PinkBalloon
     amount: 60
     delay: 0.3
@@ -456,6 +468,7 @@
     delay: 1.0
   - balloon: WhiteBalloon   # Camo
     amount: 7
+    camo: true
     delay: 0.7
 
 - type: balloonRound        # Round 38
@@ -478,7 +491,7 @@
     delay: 1.0
    
 - type: balloonRound        # Round 39
-  id: BalloonRound38
+  id: BalloonRound39
   entries:
   - balloon: BlackBalloon
     amount: 10
@@ -495,6 +508,7 @@
   - balloon: RainbowBalloon # Regrow
     amount: 2
     delay: 1.0
+    regrow: true
 
 - type: balloonRound        # Round 40  Last Round
   id: BalloonRound40

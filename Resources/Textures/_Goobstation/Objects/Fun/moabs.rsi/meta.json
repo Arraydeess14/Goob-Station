@@ -6,15 +6,21 @@
     "x": 48,
     "y": 48
   },
-  "states": [
-    {
-        "name": "dragon"
-    },
-    {
-        "name": "brb"
-    },
-    {
-        "name": "zomb"
-    }
-  ]
+    "states": [
+        {
+            "name": "dragon"
+        },
+        {
+            "name": "brb"
+        },
+        {
+            "name": "zomb"
+        },
+        {
+            "name": "camo"
+        },
+        {
+            "name": "regrow"
+        }
+    ]
 }

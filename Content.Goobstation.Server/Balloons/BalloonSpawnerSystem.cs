@@ -121,7 +121,8 @@ public sealed class BalloonSpawnerSystem : EntitySystem
                 ent.Comp.Pending.Enqueue(new QueuedBalloonSpawn
                 {
                     Balloon = entry.Balloon,
-                    Delay = entry.Delay
+                    Delay = entry.Delay,
+                    IsRegrow = entry.Regrow
                 });
             }
         }
@@ -170,6 +171,14 @@ public sealed class BalloonSpawnerSystem : EntitySystem
             if (TryComp<BalloonComponent>(spawned, out var balloon))
             {
                 balloon.LinkedTrackEnd = spawner.LinkedTrackEnd;
+
+                if (next.IsRegrow)
+                {
+                    balloon.IsRegrow = true;
+                    balloon.RegrowTimer = balloon.RegrowDelay;
+                    balloon.RegrowCap = next.Balloon;
+                    Dirty(spawned, balloon);
+                }
 
                 if (TryFindFirstTrackPiece(uid, xform, out var firstTrack, out var dir))
                 {

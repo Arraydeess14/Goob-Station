@@ -242,3 +242,22 @@
   components:
   - type: Flatpack
     entity: Vaccinator
+    
+- type: entity  # Balloons Start:
+  parent: BaseFlatpack
+  id: BloonSpawnerFlatpack
+  name: balloon spawner flatpack
+  description: A flatpack used for constructing a balloon spawner
+  components:
+  - type: Flatpack
+    entity: BloonSpawner
+    
+- type: entity  
+  parent: BaseFlatpack
+  id: BloonTrackEndFlatpack
+  name: balloon trunk flatpack
+  description: A flatpack used for constructing a balloon trunk
+  components:
+  - type: Flatpack
+    entity: BloonTrackEnd
+    # Balloons end

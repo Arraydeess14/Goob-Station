@@ -23,4 +23,10 @@ public sealed partial class BalloonRoundEntry
 
     [DataField]
     public float Delay = 0.5f;
+
+    [DataField]
+    public bool Regrow = false;
+
+    [DataField]
+    public bool Camo = false;
 }
