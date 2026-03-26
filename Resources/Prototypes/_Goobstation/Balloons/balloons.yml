@@ -19,8 +19,8 @@
   - type: Physics # has dynamic physics
     bodyType: Dynamic
   - type: Penetratable # projectile Able to pierce balloons
-    penetrateDamage: 1
-    damagePenalty: 0.5
+    penetrateDamage: 0
+    damagePenalty: 0
   - type: NpcFactionMember
     factions:
       - Balloon
@@ -36,6 +36,20 @@
           - TabletopMachineMask
         layer:
           - TabletopMachineLayer    # No collision but still able to be shot
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 4           # balloon health
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          path: /Audio/_Goobstation/BalloonEffect/balloon_pop.ogg
+          params:
+            variation: 0.125
+            volume: -4
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
           
 # Validator Bloon
 - type: entity
@@ -47,13 +61,25 @@
   - type: Sprite
     state: icon
   - type: Balloon
-    minCash: 0
-    maxCash: 0
     speed: 10.0
     lives: 0
     isValidator: true
     spawnOnPop: []
-
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 800         # balloon health
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          path: /Audio/_Goobstation/BalloonEffect/balloon_pop.ogg
+          params:
+            variation: 0.125
+            volume: -4
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+        
 # Red Balloon
 - type: entity
   name: red balloon
@@ -64,25 +90,10 @@
   - type: Sprite
     state: red
   - type: Balloon
-    minCash: 10
-    maxCash: 20
     speed: 1.0
     lives: 1
     spawnOnPop: []
-  - type: Destructible
-    thresholds:
-    - trigger:
-        !type:DamageTrigger
-        damage: 1           # balloon health
-      behaviors:
-      - !type:PlaySoundBehavior
-        sound:
-          path: /Audio/_Goobstation/BalloonEffect/balloon_pop.ogg
-          params:
-            variation: 0.125
-            volume: -4
-      - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+
 
 # Blue Balloon
 - type: entity
@@ -94,26 +105,10 @@
   - type: Sprite
     state: blue
   - type: Balloon
-    minCash: 5
-    maxCash: 10
     speed: 1.4
     lives: 2
     spawnOnPop:
     - RedBalloon
-  - type: Destructible
-    thresholds:
-    - trigger:
-        !type:DamageTrigger
-        damage: 1           # balloon health
-      behaviors:
-      - !type:PlaySoundBehavior
-        sound:
-          path: /Audio/_Goobstation/BalloonEffect/balloon_pop.ogg
-          params:
-            variation: 0.125
-            volume: -4
-      - !type:DoActsBehavior
-        acts: [ "Destruction" ]
 
 # Green Balloon
 - type: entity
@@ -125,26 +120,10 @@
   - type: Sprite
     state: green
   - type: Balloon
-    minCash: 5
-    maxCash: 10
     speed: 1.8
     lives: 3
     spawnOnPop:
     - BlueBalloon
-  - type: Destructible
-    thresholds:
-    - trigger:
-        !type:DamageTrigger
-        damage: 1           # balloon health
-      behaviors:
-      - !type:PlaySoundBehavior
-        sound:
-          path: /Audio/_Goobstation/BalloonEffect/balloon_pop.ogg
-          params:
-            variation: 0.125
-            volume: -4
-      - !type:DoActsBehavior
-        acts: [ "Destruction" ]
 
 # Yellow Balloon
 - type: entity
@@ -156,26 +135,10 @@
   - type: Sprite
     state: yellow
   - type: Balloon
-    minCash: 5
-    maxCash: 10
     speed: 3.2
     lives: 4
     spawnOnPop:
     - GreenBalloon
-  - type: Destructible
-    thresholds:
-    - trigger:
-        !type:DamageTrigger
-        damage: 1           # balloon health
-      behaviors:
-      - !type:PlaySoundBehavior
-        sound:
-          path: /Audio/_Goobstation/BalloonEffect/balloon_pop.ogg
-          params:
-            variation: 0.125
-            volume: -4
-      - !type:DoActsBehavior
-        acts: [ "Destruction" ]
 
 # Pink Balloon
 - type: entity
@@ -187,26 +150,10 @@
   - type: Sprite
     state: pink
   - type: Balloon
-    minCash: 5
-    maxCash: 10
     speed: 3.5
     lives: 5
     spawnOnPop:
     - YellowBalloon
-  - type: Destructible
-    thresholds:
-    - trigger:
-        !type:DamageTrigger
-        damage: 1           # balloon health
-      behaviors:
-      - !type:PlaySoundBehavior
-        sound:
-          path: /Audio/_Goobstation/BalloonEffect/balloon_pop.ogg
-          params:
-            variation: 0.125
-            volume: -4
-      - !type:DoActsBehavior
-        acts: [ "Destruction" ]
 
 # Black Balloon
 - type: entity
@@ -218,8 +165,6 @@
   - type: Sprite
     state: black
   - type: Balloon
-    minCash: 5
-    maxCash: 10
     speed: 1.8
     lives: 11
     spawnOnPop:
@@ -227,20 +172,6 @@
     - PinkBalloon
   - type: Damageable
     damageContainer: BlackBalloon
-  - type: Destructible
-    thresholds:
-    - trigger:
-        !type:DamageTrigger
-        damage: 1           # balloon health
-      behaviors:
-      - !type:PlaySoundBehavior
-        sound:
-          path: /Audio/_Goobstation/BalloonEffect/balloon_pop.ogg
-          params:
-            variation: 0.125
-            volume: -4
-      - !type:DoActsBehavior
-        acts: [ "Destruction" ]
 
 # White Balloon
 - type: entity
@@ -252,8 +183,6 @@
   - type: Sprite
     state: white
   - type: Balloon
-    minCash: 5
-    maxCash: 10
     speed: 2
     lives: 11
     spawnOnPop:
@@ -261,20 +190,6 @@
     - PinkBalloon
   - type: Damageable
     damageContainer: WhiteBalloon
-  - type: Destructible
-    thresholds:
-    - trigger:
-        !type:DamageTrigger
-        damage: 1           # balloon health
-      behaviors:
-      - !type:PlaySoundBehavior
-        sound:
-          path: /Audio/_Goobstation/BalloonEffect/balloon_pop.ogg
-          params:
-            variation: 0.125
-            volume: -4
-      - !type:DoActsBehavior
-        acts: [ "Destruction" ]
  
 # Plasma Balloon
 - type: entity
@@ -286,8 +201,6 @@
   - type: Sprite
     state: plasma
   - type: Balloon
-    minCash: 5
-    maxCash: 10
     speed: 3
     lives: 11
     spawnOnPop:
@@ -295,20 +208,6 @@
     - PinkBalloon
   - type: Damageable
     damageContainer: PlasmaBalloon
-  - type: Destructible
-    thresholds:
-    - trigger:
-        !type:DamageTrigger
-        damage: 1           # balloon health
-      behaviors:
-      - !type:PlaySoundBehavior
-        sound:
-          path: /Audio/_Goobstation/BalloonEffect/balloon_pop.ogg
-          params:
-            variation: 0.125
-            volume: -4
-      - !type:DoActsBehavior
-        acts: [ "Destruction" ]
 
 # Zebra Balloon
 - type: entity
@@ -320,8 +219,6 @@
   - type: Sprite
     state: zebra
   - type: Balloon
-    minCash: 5
-    maxCash: 10
     speed: 1.8
     lives: 23
     spawnOnPop:
@@ -329,20 +226,6 @@
     - WhiteBalloon
   - type: Damageable
     damageContainer: ZebraBalloon
-  - type: Destructible
-    thresholds:
-    - trigger:
-        !type:DamageTrigger
-        damage: 1           # balloon health
-      behaviors:
-      - !type:PlaySoundBehavior
-        sound:
-          path: /Audio/_Goobstation/BalloonEffect/balloon_pop.ogg
-          params:
-            variation: 0.125
-            volume: -4
-      - !type:DoActsBehavior
-        acts: [ "Destruction" ]
 
 # steel balloon
 - type: entity
@@ -354,8 +237,6 @@
   - type: Sprite
     state: steel
   - type: Balloon
-    minCash: 5
-    maxCash: 10
     speed: 1
     lives: 23
     spawnOnPop:
@@ -366,20 +247,6 @@
   - type: Penetratable # projectile Able to pierce balloons
     penetrateDamage: 1000
     damagePenalty: 1000
-  - type: Destructible
-    thresholds:
-    - trigger:
-        !type:DamageTrigger
-        damage: 1           # balloon health
-      behaviors:
-      - !type:PlaySoundBehavior
-        sound:
-          path: /Audio/_Goobstation/BalloonEffect/balloon_pop.ogg
-          params:
-            variation: 0.125
-            volume: -4
-      - !type:DoActsBehavior
-        acts: [ "Destruction" ]
 
 # rainbow balloon
 - type: entity
@@ -391,27 +258,11 @@
   - type: Sprite
     state: rainbow
   - type: Balloon
-    minCash: 5
-    maxCash: 10
     speed: 2.2
     lives: 47
     spawnOnPop:
     - ZebraBalloon
     - ZebraBalloon
-  - type: Destructible
-    thresholds:
-    - trigger:
-        !type:DamageTrigger
-        damage: 1           # balloon health
-      behaviors:
-      - !type:PlaySoundBehavior
-        sound:
-          path: /Audio/_Goobstation/BalloonEffect/balloon_pop.ogg
-          params:
-            variation: 0.125
-            volume: -4
-      - !type:DoActsBehavior
-        acts: [ "Destruction" ]
 
         # Bloons 2
 - type: entity
@@ -423,10 +274,10 @@
   - type: Sprite
     state: carp
   - type: Balloon
-    minCash: 5
-    maxCash: 10
     speed: 2.5
     lives: 104
+    popHealth: 40
+    currentPopHealth: 40
     spawnOnPop:
     - RainbowBalloon
     - RainbowBalloon
@@ -434,7 +285,7 @@
     thresholds:
     - trigger:
         !type:DamageTrigger
-        damage: 10        # balloon health
+        damage: 40        # balloon health
       behaviors:
       - !type:PlaySoundBehavior
         sound:
@@ -458,9 +309,9 @@
     state: dragon
     noRot: false
   - type: Balloon
-    minCash: 5
-    maxCash: 10
     speed: 1
+    popHealth: 800
+    currentPopHealth: 800
     isMoab: true
     lives: 616 # Game accurate
     spawnOnPop:
@@ -473,15 +324,15 @@
   - type: Destructible
     thresholds:
     - trigger:
-       !type:DamageTrigger
-       damage: 50     # balloon health, Nerfed asf
+        !type:DamageTrigger
+        damage: 800
       behaviors:
       - !type:PlaySoundBehavior
-       sound:
-         path: /Audio/_Goobstation/BalloonEffect/balloon_pop.ogg
-         params:
-           variation: 0.125
-           volume: -4
+        sound:
+          path: /Audio/_Goobstation/BalloonEffect/balloon_pop.ogg
+          params:
+            variation: 0.125
+            volume: -4
       - !type:DoActsBehavior
         acts: [ "Destruction" ]
 

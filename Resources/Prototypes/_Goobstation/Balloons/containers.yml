@@ -5,59 +5,61 @@
 
 - type: damageContainer
   id: RubberBalloon
-  supportedGroups:
-  - Burn
-  - Brute
-  - Genetic
-  - Toxin
-  - Electronic
-  
-- type: damageContainer
-  id: BlackBalloon
-  supportedGroups:
-  - Brute
-  - Genetic
-  - Toxin
-  - Electronic
   supportedTypes:
+    - Blunt
+    - Slash
+    - Piercing
+    - Heat
+    - Shock
+    - Cold
+    - Caustic
+    - Poison
+  
+- type: damageContainer     # Imumune to heat and shock
+  id: BlackBalloon
+  supportedTypes:
+    - Blunt
+    - Slash
+    - Piercing
     - Cold
     - Caustic
     
-- type: damageContainer
+- type: damageContainer     # Imune to Brute entirely
   id: SteelBalloon
-  supportedGroups:
-  - Burn
-  - Genetic
-  - Toxin
-  - Electronic
-  supportedTypes:
-    - Shock
-    
-- type: damageContainer
-  id: WhiteBalloon
-  supportedGroups:
-  - Brute
-  - Genetic
-  - Toxin
-  - Electronic
   supportedTypes:
     - Heat
+    - Shock
+    - Shock
+    - Cold
     - Caustic
-    - Shock
+    - Poison
     
-- type: damageContainer
-  id: ZebraBalloon
-  supportedGroups:
-  - Brute
-  - Genetic
-  - Toxin
-  - Electronic
+- type: damageContainer     # Immune to Cold
+  id: WhiteBalloon
   supportedTypes:
+    - Blunt
+    - Slash
+    - Piercing
+    - Heat
     - Shock
+    - Caustic
+    - Poison
+    
+- type: damageContainer     # Immune to heat and cold
+  id: ZebraBalloon
+  supportedTypes:
+    - Blunt
+    - Slash
+    - Piercing
+    - Shock
+    - Caustic
+    - Poison
   
-- type: damageContainer
+- type: damageContainer     # Imune to burn entirely
   id: PlasmaBalloon
-  supportedGroups:
-  - Brute
-  - Genetic
-  - Toxin
+  supportedTypes:
+    - Blunt
+    - Slash
+    - Piercing
+    - Caustic
+    - Poison

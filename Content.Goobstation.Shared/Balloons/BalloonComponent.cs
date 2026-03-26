@@ -9,10 +9,10 @@ namespace Content.Goobstation.Shared.Balloons;
 public sealed partial class BalloonComponent : Component
 {
     [DataField, AutoNetworkedField]
-    public int MinCash = 1;
+    public int MinCash = 10;
 
     [DataField, AutoNetworkedField]
-    public int MaxCash = 1;
+    public int MaxCash = 10;
 
     // Bloons speed on the track
     [DataField, AutoNetworkedField]
@@ -21,6 +21,12 @@ public sealed partial class BalloonComponent : Component
     // How many lives it removes when it reaches track end
     [DataField, AutoNetworkedField]
     public int Lives = 1;
+
+    [DataField, AutoNetworkedField]
+    public int PopHealth = 4;
+
+    [DataField, AutoNetworkedField]
+    public int CurrentPopHealth = 4;
 
     [DataField]
     public EntProtoId CashPrototype = "SpaceCash";
@@ -37,6 +43,7 @@ public sealed partial class BalloonComponent : Component
     [DataField]
     public bool ProcessedPop = false;
 
+    // Track Validation
     [DataField]
     public bool IsValidator = false;
 
@@ -69,5 +76,7 @@ public sealed partial class BalloonComponent : Component
     public EntityCoordinates? MoveTarget;
     public Direction? TravelDirection;
 
+    [DataField]
     public bool IsMoab = false;
+
 }

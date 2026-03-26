@@ -1,7 +1,13 @@
 using Content.Goobstation.Shared.Balloons;
 using Content.Server.Stack;
+using Content.Shared.Damage;
+using Content.Shared.Damage.Events;
+using Content.Shared.Damage.Prototypes;
 using Content.Shared.Destructible;
 using Content.Shared.Stacks;
+using Content.Shared.Damage.Components;
+using Robust.Shared.Audio;
+using Robust.Shared.Audio.Systems;
 using Robust.Shared.Map;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
@@ -15,12 +21,71 @@ public sealed class BalloonSystem : EntitySystem
     [Dependency] private readonly EntityLookupSystem _lookup = default!;
     [Dependency] private readonly IRobustRandom _random = default!;
     [Dependency] private readonly BloonTrackEndSystem _trackEnd = default!;
+    [Dependency] private readonly SharedAudioSystem _audio = default!;
+    [Dependency] private readonly IPrototypeManager _prototype = default!;
+
+    private sealed record PendingChildSpawn(
+        EntProtoId Proto,
+        MapCoordinates Coords,
+        EntityUid? LinkedTrackEnd,
+        EntityUid? CurrentTrackPiece,
+        Direction? TravelDirection,
+        EntityCoordinates? MoveTarget,
+        EntityUid? CurrentTrackEndTarget,
+        int SpilloverDamage);
+
+    private readonly List<PendingChildSpawn> _pendingChildSpawns = new();
+
     public override void Initialize()
     {
+        SubscribeLocalEvent<BalloonComponent, BeforeDamageChangedEvent>(OnBeforeDamageChanged);
         SubscribeLocalEvent<BalloonComponent, DestructionEventArgs>(OnBalloonDestroyed);
     }
 
-    // When Balloon is popped
+    public override void Update(float frameTime)
+    {
+        if (_pendingChildSpawns.Count > 0)
+        {
+            var pending = new List<PendingChildSpawn>(_pendingChildSpawns);
+            _pendingChildSpawns.Clear();
+
+            foreach (var spawn in pending)
+            {
+                var spawned = Spawn(spawn.Proto, spawn.Coords);
+
+                if (!TryComp<BalloonComponent>(spawned, out var child))
+                    continue;
+
+                child.LinkedTrackEnd = spawn.LinkedTrackEnd;
+                child.CurrentTrackPiece = spawn.CurrentTrackPiece;
+                child.TravelDirection = spawn.TravelDirection;
+                child.MoveTarget = spawn.MoveTarget;
+                child.CurrentTrackEndTarget = spawn.CurrentTrackEndTarget;
+
+                if (spawn.SpilloverDamage > 0)
+                    ApplyDamage((spawned, child), spawn.SpilloverDamage);
+            }
+        }
+    }
+
+    private void OnBeforeDamageChanged(Entity<BalloonComponent> ent, ref BeforeDamageChangedEvent args)
+    {
+        if (ent.Comp.ProcessedPop)
+            return;
+
+        var damage = GetBalloonDamage(ent, args.Damage);
+        if (damage <= 0)
+        {
+            args.Damage = new DamageSpecifier();
+            return;
+        }
+
+        ApplyDamage(ent, damage);
+
+        // Let projectile hit/pierce logic still happen, but prevent normal HP damage.
+        args.Damage = new DamageSpecifier();
+    }
+
     private void OnBalloonDestroyed(Entity<BalloonComponent> ent, ref DestructionEventArgs args)
     {
         if (ent.Comp.ProcessedPop)
@@ -29,10 +94,67 @@ public sealed class BalloonSystem : EntitySystem
         ent.Comp.ProcessedPop = true;
 
         HandleCashReward(ent);
-        HandleChildSpawns(ent);
+        HandleChildSpawns(ent, 0);
     }
 
-    // Spawn cash
+    public void ApplyDamage(Entity<BalloonComponent> ent, int damage)
+    {
+        if (damage <= 0 || Deleted(ent) || ent.Comp.ProcessedPop)
+            return;
+
+        if (damage < ent.Comp.CurrentPopHealth)
+        {
+            ent.Comp.CurrentPopHealth -= damage;
+            Dirty(ent);
+            return;
+        }
+
+        var leftoverDamage = damage - ent.Comp.CurrentPopHealth;
+        PopBloon(ent, leftoverDamage);
+    }
+
+    private void PopBloon(Entity<BalloonComponent> ent, int leftoverDamage)
+    {
+        if (ent.Comp.ProcessedPop)
+            return;
+
+        ent.Comp.ProcessedPop = true;
+
+        _audio.PlayPvs(
+            new SoundPathSpecifier("/Audio/_Goobstation/BalloonEffect/balloon_pop.ogg"),
+            ent.Owner,
+            AudioParams.Default.WithVariation(0.125f).WithVolume(-4f));
+
+        HandleCashReward(ent);
+        HandleChildSpawns(ent, leftoverDamage);
+
+        QueueDel(ent);
+    }
+
+    private int GetBalloonDamage(Entity<BalloonComponent> ent, DamageSpecifier damage)
+    {
+        if (!TryComp<DamageableComponent>(ent, out var damageable))
+            return (int) MathF.Floor((float) damage.GetTotal());
+
+        if (!_prototype.TryIndex<DamageContainerPrototype>(damageable.DamageContainerID, out var container))
+            return (int) MathF.Floor((float) damage.GetTotal());
+
+        var total = 0f;
+
+        foreach (var (damageType, value) in damage.DamageDict)
+        {
+            if (value <= 0)
+                continue;
+
+            if (!container.SupportedTypes.Contains(damageType))
+                continue;
+
+            total += (float) value;
+        }
+
+        return (int) MathF.Floor(total);
+    }
+
     private void HandleCashReward(Entity<BalloonComponent> ent)
     {
         var amount = _random.Next(ent.Comp.MinCash, ent.Comp.MaxCash + 1);
@@ -50,14 +172,13 @@ public sealed class BalloonSystem : EntitySystem
         SpawnOrMergeCash(ent, amount);
     }
 
-    // Spawn Balloons
-    private void HandleChildSpawns(Entity<BalloonComponent> ent)
+    private void HandleChildSpawns(Entity<BalloonComponent> ent, int spilloverDamage)
     {
         if (ent.Comp.SpawnOnPop.Count == 0)
             return;
 
-        var parentCoords = Transform(ent).Coordinates;
-        var parentPos = parentCoords.Position;
+        var xform = Transform(ent);
+        var parentMapPos = xform.WorldPosition;
 
         var backward = ent.Comp.TravelDirection switch
         {
@@ -68,27 +189,26 @@ public sealed class BalloonSystem : EntitySystem
             _ => Vector2.Zero
         };
 
-        const float spacing = 0.30f; // Spacing for children balloons
+        const float spacing = 0.30f;
 
         for (var i = 0; i < ent.Comp.SpawnOnPop.Count; i++)
         {
             var proto = ent.Comp.SpawnOnPop[i];
-            var offsetPos = parentPos + backward * (spacing * (i + 1));
-            var spawnCoords = new EntityCoordinates(parentCoords.EntityId, offsetPos);
+            var offsetPos = parentMapPos + backward * (spacing * i);
+            var spawnCoords = new MapCoordinates(offsetPos, xform.MapID);
 
-            var spawned = Spawn(proto, spawnCoords);
-
-            if (!TryComp<BalloonComponent>(spawned, out var child))
-                continue;
-
-            child.LinkedTrackEnd = ent.Comp.LinkedTrackEnd;
-            child.CurrentTrackPiece = ent.Comp.CurrentTrackPiece;
-            child.TravelDirection = ent.Comp.TravelDirection;
-            child.MoveTarget = ent.Comp.MoveTarget;
-            child.CurrentTrackEndTarget = ent.Comp.CurrentTrackEndTarget;
+            _pendingChildSpawns.Add(new PendingChildSpawn(
+                proto,
+                spawnCoords,
+                ent.Comp.LinkedTrackEnd,
+                ent.Comp.CurrentTrackPiece,
+                ent.Comp.TravelDirection,
+                ent.Comp.MoveTarget,
+                ent.Comp.CurrentTrackEndTarget,
+                spilloverDamage));
         }
     }
-    // handle where cash goes
+
     private void SpawnOrMergeCash(Entity<BalloonComponent> ent, int amount)
     {
         var coords = Transform(ent).Coordinates;
