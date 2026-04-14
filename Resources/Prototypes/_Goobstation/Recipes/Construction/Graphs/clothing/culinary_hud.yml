@@ -1,0 +1,36 @@
+- type: constructionGraph
+  id: HudCulinary
+  graph:
+    - node: start
+      edges:
+        - to: hudCulinary
+          steps:
+            - tag: HudFood
+              doAfter: 5
+              icon:
+                sprite: _Goobstation/Clothing/Eyes/Hud/food.rsi
+                state: icon
+              name: hunger hud
+            - tag: HudBeer
+              doAfter: 5
+              icon:
+                sprite: _Goobstation/Clothing/Eyes/Hud/beer.rsi
+                state: icon
+              name: beer hud
+            - material: Cable
+              amount: 5
+              doAfter: 5
+
+    - node: hudCulinary
+      entity: ClothingEyesHudCulinary
+      edges:
+      - to: start
+        steps:
+          - tool: Screwing
+            doAfter: 5
+        completed:
+        - !type:SpawnPrototype
+          prototype: ClothingEyesHudFood
+        - !type:SpawnPrototype
+          prototype: ClothingEyesHudBeer
+        - !type:DeleteEntity

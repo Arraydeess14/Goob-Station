@@ -82,3 +82,53 @@
     isEquipment: true
     color: "#05570a"
     lightRadius: 15
+    
+## Food huds
+- type: entity
+  parent: ClothingEyesBase
+  id: ClothingEyesHudFood
+  name: hunger hud
+  description: Shows the hunger of crew.
+  components:
+  - type: Sprite
+    sprite: _Goobstation/Clothing/Eyes/Hud/food.rsi
+  - type: Clothing
+    sprite: _Goobstation/Clothing/Eyes/Hud/food.rsi
+  - type: ShowHungerIcons
+  - type: Tag
+    tags:
+    - HudFood
+  
+- type: entity
+  parent: ClothingEyesBase
+  id: ClothingEyesHudBeerVisor
+  name: beer hud
+  description: Shows how thirsty crew is. 
+  components:
+  - type: Sprite
+    sprite: _Goobstation/Clothing/Eyes/Hud/beer.rsi
+  - type: Clothing
+    sprite: _Goobstation/Clothing/Eyes/Hud/beer.rsi
+  - type: ShowThirstIcons
+  - type: Tag
+    tags:
+    - HudBeer
+  
+- type: entity
+  parent: ClothingEyesBase
+  id: ClothingEyesHudCulinary
+  name: culinary hud
+  description: Shows how parched and satied crew is. 
+  components:
+  - type: Sprite
+    sprite: _Goobstation/Clothing/Eyes/Hud/culinary.rsi
+  - type: Construction
+    graph: HudCulinary
+    node: hudCulinary
+  - type: Clothing
+    sprite: _Goobstation/Clothing/Eyes/Hud/culinary.rsi
+  - type: ShowThirstIcons
+  - type: ShowHungerIcons
+  - type: Tag
+    tags:
+    - HudCulinary

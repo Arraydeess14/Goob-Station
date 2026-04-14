@@ -277,6 +277,7 @@
     - ChemistryStatic
     - TapeRecorderStatic
     - CondimentStatic
+    - ServiceHudsStatic
     dynamicPacks:
     - Janitor
     - Instruments

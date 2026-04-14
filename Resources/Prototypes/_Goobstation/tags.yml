@@ -755,6 +755,15 @@
 
 - type: Tag
   id: HudMedicalDiagnostic
+  
+- type: Tag
+  id: HudBeer
+
+- type: Tag
+  id: HudCulinary
+
+- type: Tag
+  id: HudFood
 
 - type: Tag
   id: ReverseBearTrapKey

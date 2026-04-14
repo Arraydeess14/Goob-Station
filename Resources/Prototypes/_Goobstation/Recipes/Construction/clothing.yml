@@ -63,3 +63,10 @@
   targetNode: meddiagHud
   category: construction-category-clothing
   objectType: Item
+
+- type: construction
+  id: ClothingEyesHudCulinary
+  graph: HudCulinary
+  targetNode: hudCulinary
+  category: construction-category-clothing
+  objectType: Item
