@@ -128,3 +128,63 @@
   - type: BatterySelfRecharger
     autoRechargeRate: 15
     autoRechargePauseTime: 90
+    
+  # Security Medigun
+- type: entity
+  parent: MedicalBeamGun
+  id: MedicalBeamGunSecurity
+  name: security medical beam gun
+  description: aight bro
+  suffix: Unlimited
+  components:
+  - type: Sprite
+    sprite: _Goobstation/Objects/Specific/Medical/security_medigun.rsi
+  - type: Item
+    sprite: _Goobstation/Objects/Specific/Medical/security_medigun.rsi
+    size: Normal
+  #- type: MultiHandedItem
+  - type: Wieldable
+  - type: MediGun
+    healing:
+      types:
+        Blunt: -1
+        Slash: -1
+        Piercing: -1
+        Heat: -0.5
+        Cold: -0.5
+    uberHealing:
+      types:
+        Blunt: -4
+        Slash: -4
+        Piercing: -4
+        Heat: -4
+        Cold: -3
+        Shock: -3
+        Caustic: -2
+        Ion: -3
+        Bloodloss: -4
+        Asphyxiation: 3
+    pointsToUber: 60
+    uberDefaultLenght: 10
+    maxRange: 6
+    defaultLineColor: White
+    uberLineColor: Purple
+    beamSprite:
+      sprite: /Textures/_Goobstation/Objects/Specific/Medical/security_medigun.rsi
+      state: truth_beam
+        
+- type: entity
+  parent: MedicalBeamGunSecurity
+  id: MedicalBeamGunSecurityBattery
+  suffix: Battery
+  components:
+  - type: Battery
+    maxCharge: 15
+    startingCharge: 15
+  - type: ItemSlots
+    slots:
+      cell_slot:
+        name: power-cell-slot-component-slot-name-default
+        startingItem: PowerCellMedium
+  - type: PowerCellSlot
+    cellSlotId: cell_slot
